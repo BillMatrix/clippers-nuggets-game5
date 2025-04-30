@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang=\"en\">
+<head>
+    <meta charset=\"UTF-8\">
+    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">
+    <title>Clippers vs Nuggets Game 5 Analysis</title>
+    <style>
+        :root {
+            --primary-color: #0072c6;
+            --secondary-color: #e94d1a;
+            --dark-color: #1a1a1a;
+            --light-color: #f4f4f4;
+            --box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        header {
+            background: linear-gradient(135deg, #0072c6, #00a0e9);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://cdn.nba.com/teams/uploads/sites/1610612746/2025/04/Game-Preview-by-Toyota-WEB-68.png') center/cover;
+            opacity: 0.2;
+            z-index: 1;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+        }
+
+        .game-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .game-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--box-shadow);
+            transition: var(--transition);
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .game-header {
+            background: linear-gradient(to right, #0072c6, #00a0e9);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .game-content {
+            padding: 1.5rem;
+        }
+
+        .key-stats {
+            margin-top: 1rem;
+        }
+
+        .key-stats h4 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .stats-list {
+            list-style: none;
+        }
+
+        .stats-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .stats-list li:last-child {
+            border-bottom: none;
+        }
+
+        .gallery {
+            margin-top: 3rem;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: var(--box-shadow);
+            height: 250px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 0.8rem;
+            transform: translateY(100%);
+            transition: var(--transition);
+        }
+
+        .gallery-item:hover .gallery-caption {
+            transform: translateY(0);
+        }
+
+        .stats-comparison {
+            margin-top: 3rem;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+
+        .tab-btn {
+            padding: 0.8rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 3px solid transparent;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #777;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .tab-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .tab-btn.active {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--primary-color);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .chart-container {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: var(--box-shadow);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .chart-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+            box-shadow: var(--box-shadow);
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .stats-table th, 
+        .stats-table td {
+            padding: 1rem;
+            text-align: left;
+        }
+
+        .stats-table th {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .stats-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .stats-table tr:hover {
+            background-color: #e6f2ff;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            background: #005da3;
+            transform: translateY(-3px);
+        }
+
+        .btn-secondary {
+            background: var(--secondary-color);
+        }
+
+        .btn-secondary:hover {
+            background: #c73d0e;
+        }
+
+        .cta {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, #0072c6, #00a0e9);
+            color: white;
+        }
+
+        .cta h2 {
+            margin-bottom: 1.5rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            overflow: auto;
+        }
+
+        .modal-content {
+            margin: 5% auto;
+            width: 80%;
+            max-width: 900px;
+            animation: modalopen 0.5s;
+        }
+
+        .modal-img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-btn:hover {
+            color: var(--secondary-color);
+        }
+
+        @keyframes modalopen {
+            from {opacity: 0}
+            to {opacity: 1}
+        }
+
+        footer {
+            background: var(--dark-color);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .scroll-top.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-top:hover {
+            background: #005da3;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+            
+            .game-summary {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            }
+            
+            .tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .tab-btn {
+                margin-bottom: 0.5rem;
+            }
+            
+            .modal-content {
+                width: 95%;
+                margin: 20% auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class=\"header-bg\"></div>
+        <div class=\"header-content\">
+            <h1>Clippers vs Nuggets</h1>
+            <p>Game 5 Analysis and Highlights</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class=\"container\">
+        <h2 class=\"section-title\">Game Summary</h2>
+        
+        <div class=\"game-summary\">
+            <!-- 2020 Game -->
+            <div class=\"game-card\">
+                <div class=\"game-header\">
+                    <h3>2020 NBA Playoffs</h3>
+                    <p>September 11, 2020</p>
+                </div>
+                <div class=\"game-content\">
+                    <h4>Result: Denver Nuggets won 111-105</h4>
+                    <div class=\"key-stats\">
+                        <h4>Key Stats:</h4>
+                        <ul class=\"stats-list\">
+                            <li><strong>Jamal Murray (Nuggets):</strong> 26 points, 8 rebounds, 7 assists</li>
+                            <li><strong>Nikola Jokic (Nuggets):</strong> 22 points, 14 rebounds</li>
+                            <li><strong>Kawhi Leonard (Clippers):</strong> 36 points, 9 rebounds</li>
+                        </ul>
+                    </div>
+                    <button class=\"btn btn-secondary view-details\" data-year=\"2020\">View Details</button>
+                </div>
+            </div>
+
+            <!-- 2025 Game -->
+            <div class=\"game-card\">
+                <div class=\"game-header\">
+                    <h3>2025 NBA Playoffs</h3>
+                    <p>April 30, 2025</p>
+                </div>
+                <div class=\"game-content\">
+                    <h4>Result: Denver Nuggets won 131-115</h4>
+                    <div class=\"key-stats\">
+                        <h4>Key Stats:</h4>
+                        <ul class=\"stats-list\">
+                            <li><strong>Jamal Murray (Nuggets):</strong> 43 points</li>
+                            <li><strong>Nikola Jokic (Nuggets):</strong> 13 points, 10 rebounds, 12 assists</li>
+                            <li><strong>Ivica Zubac (Clippers):</strong> 27 points</li>
+                            <li><strong>Russell Westbrook (Clippers):</strong> 21 points</li>
+                        </ul>
+                    </div>
+                    <button class=\"btn btn-secondary view-details\" data-year=\"2025\">View Details</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Comparison Section -->
+        <div class=\"stats-comparison\">
+            <h2 class=\"section-title\">Stats Comparison</h2>
+            
+            <div class=\"tabs\">
+                <button class=\"tab-btn active\" data-tab=\"points\">Points</button>
+                <button class=\"tab-btn\" data-tab=\"rebounds\">Rebounds</button>
+                <button class=\"tab-btn\" data-tab=\"assists\">Assists</button>
+            </div>
+            
+            <div class=\"tab-content active\" id=\"points\">
+                <div class=\"chart-container\">
+                    <h3 class=\"chart-title\">Top Scorers Comparison</h3>
+                    <canvas id=\"pointsChart\"></canvas>
+                </div>
+            </div>
+            
+            <div class=\"tab-content\" id=\"rebounds\">
+                <div class=\"chart-container\">
+                    <h3 class=\"chart-title\">Top Rebounders Comparison</h3>
+                    <canvas id=\"reboundsChart\"></canvas>
+                </div>
+            </div>
+            
+            <div class=\"tab-content\" id=\"assists\">
+                <div class=\"chart-container\">
+                    <h3 class=\"chart-title\">Top Playmakers Comparison</h3>
+                    <canvas id=\"assistsChart\"></canvas>
+                </div>
+            </div>
+            
+            <table class=\"stats-table\">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Team</th>
+                        <th>Points</th>
+                        <th>Rebounds</th>
+                        <th>Assists</th>
+                        <th>FG%</th>
+                        <th>3PT%</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2020</td>
+                        <td>Nuggets</td>
+                        <td>111</td>
+                        <td>44</td>
+                        <td>26</td>
+                        <td>49.4%</td>
+                        <td>38.7%</td>
+                    </tr>
+                    <tr>
+                        <td>2020</td>
+                        <td>Clippers</td>
+                        <td>105</td>
+                        <td>37</td>
+                        <td>22</td>
+                        <td>45.1%</td>
+                        <td>33.3%</td>
+                    </tr>
+                    <tr>
+                        <td>2025</td>
+                        <td>Nuggets</td>
+                        <td>131</td>
+                        <td>46</td>
+                        <td>32</td>
+                        <td>56.8%</td>
+                        <td>43.2%</td>
+                    </tr>
+                    <tr>
+                        <td>2025</td>
+                        <td>Clippers</td>
+                        <td>115</td>
+                        <td>35</td>
+                        <td>24</td>
+                        <td>47.3%</td>
+                        <td>34.5%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Gallery Section -->
+        <div class=\"gallery\">
+            <h2 class=\"section-title\">Game Highlights</h2>
+            
+            <div class=\"gallery-grid\">
+                <div class=\"gallery-item\">
+                    <img src=\"https://ca-times.brightspotcdn.com/dims4/default/5fe5cf5/2147483647/strip/true/crop/3744x2368+0+0/resize/1200x759!/quality/75/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F68%2Fe6%2F80f87722494d8ad74c5f7a7268dd%2F1503036-sp-nba-playoffs-clippers-nuggets-ajs-31.jpg\" alt=\"Clippers vs Nuggets\">
+                    <div class=\"gallery-caption\">Clippers look to rebound against Nuggets in critical Game 5</div>
+                </div>
+                <div class=\"gallery-item\">
+                    <img src=\"https://i.ytimg.com/vi/KtRBihfds2I/maxresdefault.jpg\" alt=\"Clippers vs Nuggets Game 5\">
+                    <div class=\"gallery-caption\">Los Angeles Clippers vs Denver Nuggets GAME 5 | April 29, 2025</div>
+                </div>
+                <div class=\"gallery-item\">
+                    <img src=\"https://i.ytimg.com/vi/K4tVd7YjXK4/maxresdefault.jpg\" alt=\"Game Highlights\">
+                    <div class=\"gallery-caption\">Los Angeles Clippers vs Denver Nuggets Full Game 5 Highlights - April 29, 2025</div>
+                </div>
+                <div class=\"gallery-item\">
+                    <img src=\"https://d.newsweek.com/en/full/2635599/nuggets-clippers-game-5.jpg\" alt=\"Game 5 Preview\">
+                    <div class=\"gallery-caption\">Best Clippers vs. Nuggets Player Props, ATS Bets</div>
+                </div>
+                <div class=\"gallery-item\">
+                    <img src=\"https://cdn.nba.com/teams/uploads/sites/1610612746/2025/04/Game-Preview-by-Toyota-WEB-68.png\" alt=\"Game Preview\">
+                    <div class=\"gallery-caption\">GAME PREVIEW: 5 Things You Should Know About Clippers vs. Nuggets Game 5</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class=\"cta\">
+            <h2>Want to see more NBA action?</h2>
+            <p>Check out the latest games and highlights from the NBA playoffs.</p>
+            <button class=\"btn\">Explore More Games</button>
+        </div>
+    </div>
+
+    <!-- Image Modal -->
+    <div id=\"imageModal\" class=\"modal\">
+        <span class=\"close-btn\">&times;</span>
+        <div class=\"modal-content\">
+            <img class=\"modal-img\" id=\"modalImage\" src=\"\" alt=\"Enlarged Image\">
+        </div>
+    </div>
+
+    <!-- Game Details Modal -->
+    <div id=\"gameDetailsModal\" class=\"modal\">
+        <span class=\"close-btn\">&times;</span>
+        <div class=\"modal-content\" style=\"background: white; padding: 2rem; border-radius: 10px;\">
+            <h2 id=\"gameDetailsTitle\" style=\"color: var(--primary-color); margin-bottom: 1rem;\"></h2>
+            <div id=\"gameDetailsContent\"></div>
+        </div>
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <div class=\"scroll-top\">
+        <i>↑</i>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 NBA Game Analysis. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Chart.js simulation (since we can't include external libraries)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tabs functionality
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const tabId = btn.getAttribute('data-tab');
+                    
+                    // Remove active class from all buttons and contents
+                    tabBtns.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to current button and content
+                    btn.classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                    
+                    // Simulate chart rendering
+                    renderChart(tabId);
+                });
+            });
+            
+            // Image gallery modal
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            const imageModal = document.getElementById('imageModal');
+            const modalImage = document.getElementById('modalImage');
+            const closeBtn = document.querySelectorAll('.close-btn');
+            
+            galleryItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    const imgSrc = item.querySelector('img').src;
+                    modalImage.src = imgSrc;
+                    imageModal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            closeBtn.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    imageModal.style.display = 'none';
+                    gameDetailsModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                });
+            });
+            
+            window.addEventListener('click', (e) => {
+                if (e.target === imageModal) {
+                    imageModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+                if (e.target === gameDetailsModal) {
+                    gameDetailsModal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Game details modal
+            const viewDetailsButtons = document.querySelectorAll('.view-details');
+            const gameDetailsModal = document.getElementById('gameDetailsModal');
+            const gameDetailsTitle = document.getElementById('gameDetailsTitle');
+            const gameDetailsContent = document.getElementById('gameDetailsContent');
+            
+            viewDetailsButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const year = button.getAttribute('data-year');
+                    
+                    if (year === '2020') {
+                        gameDetailsTitle.textContent = '2020 NBA Playoffs - Game 5 Details';
+                        gameDetailsContent.innerHTML = `
+                            <p>The Denver Nuggets staged a remarkable comeback to defeat the LA Clippers 111-105 in Game 5 of their Western Conference Semifinals series. Despite trailing for much of the game, the Nuggets rallied in the fourth quarter behind stellar performances from Jamal Murray and Nikola Jokic.</p>
+                            
+                            <h3 style=\"color: var(--primary-color); margin: 1rem 0;\">Quarter-by-Quarter Breakdown</h3>
+                            <ul style=\"list-style: none; padding: 0;\">
+                                <li style=\"padding: 0.5rem 0; border-bottom: 1px solid #eee;\"><strong>Q1:</strong> Clippers 31 - 25 Nuggets</li>
+                                <li style=\"padding: 0.5rem 0; border-bottom: 1px solid #eee;\"><strong>Q2:</strong> Clippers 24 - 21 Nuggets</li>
+                                <li style=\"padding: 0.5rem 0; border-bottom: 1px solid #eee;\"><strong>Q3:</strong> Clippers 23 - 28 Nuggets</li>
+                                <li style=\"padding: 0.5rem 0; border-bottom: 1px solid #eee;\"><strong>Q4:</strong> Clippers 27 - 37 Nuggets</li>
+                            </ul>
+                            
+                            <h3 style=\"color: var(--primary-color); margin: 1rem 0;\">Key Moments</h3>
+                            <p>With 2:44 remaining, Jamal Murray hit a crucial three-pointer to give the Nuggets their first lead of the second half. Nikola Jokic followed with a fadeaway jumper to extend the lead, and the Nuggets held on for the win.</p>
+                            
+                            <div style=\"margin-top: 1.5rem; text-align: center;\">
+                                <button class=\"btn\">Watch Full Game Highlights</button>
+                            </div>
+                        `;
+                    } else {
+                        gameDetailsTitle.textContent = '2025 NBA Playoffs - Game 5 Details';
+                        gameDetailsContent.innerHTML = `
+                            <p>The Denver Nuggets dominated the LA Clippers with a decisive 131-115 victory in Game 5 of their first-round playoff series. Jamal Murray had an explosive performance, scoring 43 points to lead the Nuggets to a commanding 3-2 series lead.</p>
+                            
+                            <h3 style=\"color: var(--primary-color); margin: 1rem 0;\">Quarter-by-Quarter Breakdown</h3>
+                            <ul style=\"list-style: none; padding: 0;\">
+                                <li style=\"padding: 0.5rem 0; border-bottom: 1px solid #eee;\"><strong>Q1:</strong> Nuggets 35 - 27 Clippers</li>
+                                <li style=\"padding: 0.5rem 0; border-bottom: 1px solid #eee;\"><strong>Q2:</strong> Nuggets 33 - 30 Clippers</li>
+                                <li style=\"padding: 0.5rem 0; border-bottom: 1px solid #eee;\"><strong>Q3:</strong> Nuggets 38 - 31 Clippers</li>
+                                <li style=\"padding: 0.5rem 0; border-bottom: 1px solid #eee;\"><strong>Q4:</strong> Nuggets 25 - 27 Clippers</li>
+                            </ul>
+                            
+                            <h3 style=\"color: var(--primary-color); margin: 1rem 0;\">Key Moments</h3>
+                            <p>Murray's third-quarter explosion of 21 points effectively sealed the game for Denver. Nikola Jokic recorded his second triple-double of the series, orchestrating the offense with precision while the Clippers struggled to contain Denver's perimeter shooting.</p>
+                            
+                            <div style=\"margin-top: 1.5rem; text-align: center;\">
+                                <button class=\"btn\">Watch Full Game Highlights</button>
+                            </div>
+                        `;
+                    }
+                    
+                    gameDetailsModal.style.display = 'block';
+                    document.body.style.overflow = 'hidden';
+                });
+            });
+            
+            // Scroll to top functionality
+            const scrollTopBtn = document.querySelector('.scroll-top');
+            
+            window.addEventListener('scroll', () => {
+                if (window.pageYOffset > 300) {
+                    scrollTopBtn.classList.add('active');
+                } else {
+                    scrollTopBtn.classList.remove('active');
+                }
+            });
+            
+            scrollTopBtn.addEventListener('click', () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Initial chart rendering
+            renderChart('points');
+        });
+
+        // Function to simulate chart rendering
+        function renderChart(chartType) {
+            const chartCanvas = document.getElementById(chartType + 'Chart');
+            const ctx = chartCanvas.getContext('2d');
+            
+            // Clear previous chart
+            ctx.clearRect(0, 0, chartCanvas.width, chartCanvas.height);
+            
+            // Set canvas dimensions
+            chartCanvas.width = 800;
+            chartCanvas.height = 400;
+            
+            // Draw chart background
+            ctx.fillStyle = '#f9f9f9';
+            ctx.fillRect(0, 0, chartCanvas.width, chartCanvas.height);
+            
+            // Draw chart axes
+            ctx.beginPath();
+            ctx.moveTo(50, 350);
+            ctx.lineTo(750, 350);
+            ctx.moveTo(50, 350);
+            ctx.lineTo(50, 50);
+            ctx.strokeStyle = '#333';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+            
+            // Define data based on chart type
+            let data;
+            let labels;
+            let maxValue;
+            
+            if (chartType === 'points') {
+                labels = ['Leonard (2020)', 'Murray (2020)', 'Murray (2025)', 'Zubac (2025)', 'Westbrook (2025)', 'Jokic (2020)'];
+                data = [36, 26, 43, 27, 21, 22];
+                maxValue = 50;
+            } else if (chartType === 'rebounds') {
+                labels = ['Jokic (2020)', 'Leonard (2020)', 'Murray (2020)', 'Jokic (2025)'];
+                data = [14, 9, 8, 10];
+                maxValue = 15;
+            } else if (chartType === 'assists') {
+                labels = ['Murray (2020)', 'Jokic (2025)'];
+                data = [7, 12];
+                maxValue = 15;
+            }
+            
+            // Draw bars
+            const barWidth = 60;
+            const barSpacing = 70;
+            const barStartX = 100;
+            
+            for (let i = 0; i < data.length; i++) {
+                const barHeight = (data[i] / maxValue)
